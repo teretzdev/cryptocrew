@@ -37,8 +37,16 @@ class CryptoCrew():
 
 	@agent
 	def portfolio_manager(self) -> Agent:
-		return Agent(
-			config=self.agents_config['portfolio_manager'],
+		try:
+		    try:
+		        return Agent(
+		    except Exception as e:
+		        print(f"Error initializing reporting_analyst agent: {e}")
+		        return None
+		except Exception as e:
+		    print(f"Error initializing portfolio_manager agent: {e}")
+		    return None
+			config=self.agents_config.get('portfolio_manager', {}),
 			tools=[MyCryptoTool()], # Example of custom tool
 			verbose=True,
 			allow_Delegation=False,
@@ -49,7 +57,7 @@ class CryptoCrew():
 	@agent
 	def reporting_analyst(self) -> Agent:
 		return Agent(
-			config=self.agents_config['reporting_analyst'],
+			config=self.agents_config.get('reporting_analyst', {}),
 			tools=[SerperDevTool()],
 			verbose=True,
 			allow_Delegation=False,
@@ -58,8 +66,16 @@ class CryptoCrew():
 
 	@task
 	def get_highest_position_in_portfolio_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['highest_position_task'],
+		try:
+		    try:
+		        return Task(
+		    except Exception as e:
+		        print(f"Error initializing reporting_task: {e}")
+		        return None
+		except Exception as e:
+		    print(f"Error initializing get_highest_position_in_portfolio_task: {e}")
+		    return None
+			config=self.tasks_config.get('highest_position_task', {}),
 			agent=self.portfolio_manager(),
 			human_input=True
 		)
@@ -67,7 +83,7 @@ class CryptoCrew():
 	@task
 	def reporting_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['reporting_task'],
+			config=self.tasks_config.get('reporting_task', {}),
 			agent=self.reporting_analyst(),
 			output_file=f"crypto_report_{suffix_datetime}.md"
 		)

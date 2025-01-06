@@ -1,20 +1,17 @@
 highest_position_task:
   description: >
-    Find the ticker symbol of the asset with the highest value in the private portfolio.
-    Do only use provided tools as this information is 
-    private and not on Internet or in the training data.
+    Identify the ticker symbol of the asset with the highest value in the private portfolio.
+    Use only the provided tools as this information is private and not available on the Internet or in training data.
   expected_output: >
-    Json formatted answer like {"highest_ticker_symbol":"BTC"} or 
-    if there was no transaction {"highest_ticker_symbol":"No Transaction"}.
+    JSON formatted response such as {"highest_ticker_symbol":"BTC"} or 
+    {"highest_ticker_symbol":"No Transaction"} if there are no transactions.
 
 reporting_task:
   description: >
     You will be provided with a ticker symbol.
-    Make a thorough research about that given ticker symbol.
-    Make sure you find recent and relevant information about the given ticker symbol.
-    Review the context you got make a report in markdown. If possible use a markdown table
-    with source and news.
+    Conduct thorough research on the given ticker symbol, focusing on recent and relevant information.
+    Review the context and compile a report in markdown format. Use a markdown table with sources and news if possible.
     Do not search for ticker symbols.
   expected_output: >
-    A fully fledge report about a ticker symbol in markdown table format.
-    Formated as markdown with out '```'
+    A comprehensive report about a ticker symbol in markdown table format.
+    Formatted as markdown without '```'.

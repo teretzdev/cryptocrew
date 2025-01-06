@@ -18,20 +18,41 @@ class MyCryptoTool(BaseTool):
         api_key = os.getenv("BINANCE_API_KEY")
         api_secret = os.getenv("BINANCE_SECRET_KEY")
 
-        client = Client(api_key, api_secret)
+        try:
+            client = Client(api_key, api_secret)
+        except BinanceAPIException as e:
+            return f"Binance API Exception: {e}"
+        except Exception as e:
+            return f"An unexpected error occurred: {e}"
 
-        account = client.get_account()
+        try:
+            account = client.get_account()
+        except BinanceAPIException as e:
+            return f"Binance API Exception: {e}"
+        except Exception as e:
+            return f"An unexpected error occurred: {e}"
         df = pd.DataFrame(account["balances"])
         df.free = pd.to_numeric(df.free, errors="coerce")
         current_assets = df.loc[df.free > 0]
 
         try:
             # Fetch balances with more than zero balance
-            balances = {asset['asset']: float(asset['free']) + float(asset['locked'])
-                        for asset in client.get_account()['balances'] if float(asset['free']) + float(asset['locked']) > 0}
+            balances = {}
+            try:
+                balances = {asset['asset']: float(asset['free']) + float(asset['locked'])
+                            for asset in client.get_account()['balances'] if float(asset['free']) + float(asset['locked']) > 0}
+            except BinanceAPIException as e:
+                return f"Binance API Exception: {e}"
+            except Exception as e:
+                return f"An unexpected error occurred: {e}"
 
-            # Get current prices for all symbols
-            prices = {price['symbol']: float(price['price']) for price in client.get_all_tickers()}
+            prices = {}
+            try:
+                prices = {price['symbol']: float(price['price']) for price in client.get_all_tickers()}
+            except BinanceAPIException as e:
+                return f"Binance API Exception: {e}"
+            except Exception as e:
+                return f"An unexpected error occurred: {e}"
 
             # Estimate the USDT value of each asset
             estimated_values = {}
@@ -49,6 +70,6 @@ class MyCryptoTool(BaseTool):
             return most_valuable_symbol
 
         except BinanceAPIException as e:
-            return "No Transaction"
-
-    
+            return f"Binance API Exception: {e}"
+        except Exception as e:
+            return f"An unexpected error occurred: {e}"
