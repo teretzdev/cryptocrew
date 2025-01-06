@@ -47,7 +47,7 @@ class CryptoCrew():
 		    print(f"Error initializing portfolio_manager agent: {e}")
 		    return None
 			config=self.agents_config.get('portfolio_manager', {}),
-			tools=[MyCryptoTool()], # Example of custom tool
+			tools=[MyCryptoTool()], # Optimized scanning tool
 			verbose=True,
 			allow_Delegation=False,
 			llm=self.custom_llm
@@ -77,7 +77,7 @@ class CryptoCrew():
 		    return None
 			config=self.tasks_config.get('highest_position_task', {}),
 			agent=self.portfolio_manager(),
-			human_input=True
+			human_input=False # No human input needed for optimized scanning
 		)
 
 	@task
