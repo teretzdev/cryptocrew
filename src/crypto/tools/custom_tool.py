@@ -18,7 +18,12 @@ class MyCryptoTool(BaseTool):
         api_key = os.getenv("BINANCE_API_KEY")
         api_secret = os.getenv("BINANCE_SECRET_KEY")
 
-        client = Client(api_key, api_secret)
+        PAPER_TRADING = os.getenv('PAPER_TRADING', 'False').lower() == 'true'
+
+        if PAPER_TRADING:
+            client = Client(api_key, api_secret, testnet=True)
+        else:
+            client = Client(api_key, api_secret)
 
         account = client.get_account()
         df = pd.DataFrame(account["balances"])
@@ -50,5 +55,3 @@ class MyCryptoTool(BaseTool):
 
         except BinanceAPIException as e:
             return "No Transaction"
-
-    

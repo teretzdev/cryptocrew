@@ -23,6 +23,23 @@ poetry install
 ```
 ### Customizing
 
+## Paper Trading Option
+
+To enable paper trading mode, set the `PAPER_TRADING` environment variable to `True`. This will connect the application to Binance's testnet, allowing you to simulate trades without using real funds. Follow these steps to set up paper trading:
+
+1. Obtain Binance Testnet API keys by registering at [Binance Testnet](https://testnet.binance.vision/).
+2. Update the `.env` file with your testnet API keys:
+   ```
+   BINANCE_API_KEY=your_testnet_api_key_here
+   BINANCE_SECRET_KEY=your_testnet_secret_key_here
+   ```
+3. Set the `PAPER_TRADING` environment variable to `True` in your `.env` file or your environment:
+   ```
+   PAPER_TRADING=True
+   ```
+
+When `PAPER_TRADING` is not set or set to `False`, the application will use the live trading environment with real funds. Ensure you have the correct API keys for the mode you are using to prevent any authentication issues.
+
 **Add your `OPENAI_API_KEY` into the `.env` file**
 
 - Modify `src/crypto/config/agents.yaml` to define your agents
