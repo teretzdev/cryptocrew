@@ -21,7 +21,11 @@ poetry lock
 ```bash
 poetry install
 ```
-### Customizing
+## Configuration
+
+The project is configured using YAML files located in the `src/crypto/config` directory. The `agents.yaml` file defines the agents and their roles, while the `tasks.yaml` file specifies the tasks and their expected outputs. Customize these files to suit your needs.
+
+## Customizing
 
 ## Paper Trading Option
 
@@ -40,7 +44,11 @@ To enable paper trading mode, set the `PAPER_TRADING` environment variable to `T
 
 When `PAPER_TRADING` is not set or set to `False`, the application will use the live trading environment with real funds. Ensure you have the correct API keys for the mode you are using to prevent any authentication issues.
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
+## Contributing
+
+We welcome contributions from the community! To contribute, please fork the repository, make your changes, and submit a pull request. Ensure your code adheres to the project's coding standards and includes appropriate tests.
+
+**Add your `OPENAI_API_KEY` into the `.env` file**. This key is required for the project to interact with OpenAI's API.
 
 - Modify `src/crypto/config/agents.yaml` to define your agents
 - Modify `src/crypto/config/tasks.yaml` to define your tasks
@@ -57,11 +65,19 @@ poetry run crypto
 
 This command initializes the crypto Crew, assembling the agents and assigning them tasks as defined in your configuration.
 
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folser
+This example, unmodified, will create a `report.md` file with the output of a research on LLMs in the root folder.
 
 ## Understanding Your Crew
 
 The crypto Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+
+## Getting Help
+
+If you encounter any issues or have questions, there are several ways to get help:
+- Visit our [documentation](https://docs.crewai.com) for detailed guides and API references.
+- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai) by opening an issue.
+- Join our community on [Discord](https://discord.com/invite/X4JWnZnxPb) to connect with other users and developers.
+- Chat with our docs using [ChatGPT](https://chatg.pt/DWjSBZn) for quick assistance.
 
 ## Support
 
